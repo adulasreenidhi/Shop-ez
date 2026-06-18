@@ -27,6 +27,8 @@ import { FaHeart } from "react-icons/fa";
 
 function Home({ search })  {
   const [products, setProducts] = useState([]);
+  const [wishlistIds, setWishlistIds] =
+  useState([]);
   const [selectedCategory, setSelectedCategory] =
   useState("All");
   const navigate = useNavigate();
@@ -54,9 +56,10 @@ function Home({ search })  {
   "Coffee Maker": coffeeMakerImage,
 };
 
-  useEffect(() => {
-    getProducts();
-  }, []);
+ useEffect(() => {
+  getProducts();
+  fetchWishlist();
+}, []);
 
  const getProducts = async () => {
   try {
@@ -69,6 +72,26 @@ function Home({ search })  {
     setProducts(res.data.products);
   } catch (error) {
     console.error(error);
+  }
+};
+
+const fetchWishlist = async () => {
+  try {
+    const loggedUser = JSON.parse(
+      localStorage.getItem("user")
+    );
+
+    const res = await axios.get(
+      `http://localhost:5000/api/wishlist/${loggedUser.user._id}`
+    );
+
+    const ids = res.data.items.map(
+      (item) => item.productId._id
+    );
+
+    setWishlistIds(ids);
+  } catch (error) {
+    console.log(error);
   }
 };
 
@@ -113,6 +136,10 @@ function Home({ search })  {
     );
 
     toast.success("Added To Wishlist");
+    setWishlistIds([
+  ...wishlistIds,
+  productId,
+]);
   } catch (error) {
     console.error(error);
   }
@@ -249,7 +276,7 @@ function Home({ search })  {
         }}
       />
 
-      <button
+     <button
   onClick={(e) => {
     e.stopPropagation();
     addToWishlist(product._id);
@@ -274,7 +301,11 @@ function Home({ search })  {
 >
   <FaHeart
     style={{
-      color: "#ec4899",
+      color: wishlistIds.includes(
+        product._id
+      )
+        ? "red"
+        : "#d1d5db",
       fontSize: "18px",
     }}
   />

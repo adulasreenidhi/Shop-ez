@@ -18,6 +18,7 @@ import ProductDetails from "./pages/ProductDetails";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Wishlist from "./pages/Wishlist";
+import Footer from "./components/Footer";
 
 function App() {
   const isLoggedIn = localStorage.getItem("user");
@@ -126,6 +127,7 @@ function App() {
   position="top-right"
   autoClose={3000}
 />
+        <Footer />
     </BrowserRouter>
   );
 }

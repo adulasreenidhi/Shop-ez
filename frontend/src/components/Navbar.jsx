@@ -186,32 +186,45 @@ function Navbar({
         }}
       >
         <Link
-          to="/admin"
-          style={linkStyle}
-        >
-          Dashboard
-        </Link>
+  to="/admin"
+  style={linkStyle}
+  onClick={() =>
+    setShowAdminMenu(false)
+  }
+>
+  Dashboard
+</Link>
 
-        <Link
-          to="/add-product"
-          style={linkStyle}
-        >
-          Add Product
-        </Link>
+<Link
+  to="/add-product"
+  style={linkStyle}
+  onClick={() =>
+    setShowAdminMenu(false)
+  }
+>
+  Add Product
+</Link>
 
-        <Link
-          to="/all-products"
-          style={linkStyle}
-        >
-          All Products
-        </Link>
+<Link
+  to="/all-products"
+  style={linkStyle}
+  onClick={() =>
+    setShowAdminMenu(false)
+  }
+>
+  All Products
+</Link>
 
-        <Link
-          to="/all-orders"
-          style={linkStyle}
-        >
-          All Orders
-        </Link>
+<Link
+  to="/all-orders"
+  style={linkStyle}
+  onClick={() =>
+    setShowAdminMenu(false)
+  }
+>
+  All Orders
+</Link>
+        
       </div>
     )}
   </div>
